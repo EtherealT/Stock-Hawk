@@ -23,6 +23,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.StockDetailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.STOCKDETAILSACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".sync.QuoteIntentService"
             android:exported="false" />
