@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -76,6 +77,10 @@ public class StockDetailsActivity extends AppCompatActivity{
 
         LineData lineData = new LineData(dataSet);
 
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        chart.getXAxis().setTextColor(Color.WHITE);
+        chart.getAxisLeft().setTextColor(Color.WHITE);
+        chart.getAxisRight().setTextColor(Color.WHITE);
         chart.setData(lineData);
         chart.invalidate(); // refresh
     }
