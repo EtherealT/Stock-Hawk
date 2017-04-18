@@ -66,9 +66,9 @@ public class StockDetailsActivity extends AppCompatActivity{
 
     private void setupGraph(){
         List<Entry> entries = new ArrayList<>();
-        List<HistoricalQuote> graphData = history.subList(0, 30);
+        List<HistoricalQuote> graphData = history.subList(0, 50);
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 50; i++)
             entries.add(new Entry(i, graphData.get(i).getClose().floatValue()));
 
         LineDataSet dataSet = new LineDataSet(entries, stockSymbol);
