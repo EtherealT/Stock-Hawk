@@ -1,22 +1,18 @@
 package com.udacity.stockhawk.ui;
 
-import android.graphics.Color;
-import android.util.Log;
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.udacity.stockhawk.R;
+import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.io.IOException;
 
 import yahoofinance.Stock;
@@ -42,6 +38,31 @@ public class StockDetailsActivity extends AppCompatActivity{
         new StockDetailsQuery().execute(stockSymbol);
     }
 
+    private void setupGraph(){
+        List<Entry> entries = new ArrayList<>();
+        history = history.subList(0, 51);
+        Collections.reverse(history);
+
+        for (int i = 0; i <= 50; i++) {
+            HistoricalQuote hq = history.get(i);
+            entries.add(new Entry(i, hq.getClose().floatValue()));
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries, stockSymbol);
+        dataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(dataSet);
+
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        chart.getXAxis().setTextColor(Color.WHITE);
+
+        chart.getAxisLeft().setTextColor(Color.WHITE);
+        chart.getAxisRight().setTextColor(Color.WHITE);
+
+        chart.setData(lineData);
+        chart.invalidate(); // refresh
+    }
+
     private class StockDetailsQuery extends AsyncTask<String, Void, Stock>{
 
         @Override
@@ -63,26 +84,6 @@ public class StockDetailsActivity extends AppCompatActivity{
         protected void onPostExecute(Stock s) {
             setupGraph();
         }
-    }
-
-    private void setupGraph(){
-        List<Entry> entries = new ArrayList<>();
-        List<HistoricalQuote> graphData = history.subList(0, 50);
-
-        for (int i = 0; i < 50; i++)
-            entries.add(new Entry(i, graphData.get(i).getClose().floatValue()));
-
-        LineDataSet dataSet = new LineDataSet(entries, stockSymbol);
-        dataSet.setDrawValues(false);
-
-        LineData lineData = new LineData(dataSet);
-
-        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
-        chart.getXAxis().setTextColor(Color.WHITE);
-        chart.getAxisLeft().setTextColor(Color.WHITE);
-        chart.getAxisRight().setTextColor(Color.WHITE);
-        chart.setData(lineData);
-        chart.invalidate(); // refresh
     }
 
 }
