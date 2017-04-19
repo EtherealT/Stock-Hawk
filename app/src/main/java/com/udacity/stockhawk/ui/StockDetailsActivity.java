@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
 import com.github.mikephil.charting.data.*;
@@ -36,6 +37,7 @@ public class StockDetailsActivity extends AppCompatActivity{
         stockSymbol = intent.getStringExtra("stockSymbol");
 
         new StockDetailsQuery().execute(stockSymbol);
+        Toast.makeText(getApplication(), "Loading graph data", Toast.LENGTH_SHORT).show();
     }
 
     private void setupGraph(){
