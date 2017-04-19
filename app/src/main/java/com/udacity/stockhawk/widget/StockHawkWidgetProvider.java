@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.ui;
+package com.udacity.stockhawk.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.ui.MainActivity;
 
 /**
  * Created by tobi on 2017. 04. 19..
