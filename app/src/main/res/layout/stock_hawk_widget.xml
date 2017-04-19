@@ -1,8 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin">
+    android:padding="@dimen/widget_margin"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/appwidget_title"
@@ -18,11 +20,18 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/widget_stock_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/widget_stock_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:listitem="@layout/list_item_quote">
+        </ListView>
     </LinearLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

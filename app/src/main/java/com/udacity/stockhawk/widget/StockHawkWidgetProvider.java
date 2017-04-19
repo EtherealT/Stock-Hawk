@@ -19,10 +19,15 @@ public class StockHawkWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         for (int appWidgetId : appWidgetIds) {
+            RemoteViews rvs = new RemoteViews(context.getPackageName(), R.layout.stock_hawk_widget);
+
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pending = PendingIntent.getActivity(context, 0, intent, 0);
-            RemoteViews rvs = new RemoteViews(context.getPackageName(), R.layout.stock_hawk_widget);
             rvs.setOnClickPendingIntent(R.id.widget, pending);
+
+            Intent i = new Intent(context, WidgetRemoteViewsService.class);
+            rvs.setRemoteAdapter(R.id.widget_stock_list, i);
+
             appWidgetManager.updateAppWidget(appWidgetId, rvs);
         }
 
