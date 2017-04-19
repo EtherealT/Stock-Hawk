@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         }).attachToRecyclerView(stockRecyclerView);
 
-        //force https when requesting stock history throughout app, there's currently an issue for http.
-        System.setProperty("yahoofinance.baseurl.histquotes", "https://ichart.yahoo.com/table.csv");
     }
 
     private boolean networkUp() {
