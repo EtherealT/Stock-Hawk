@@ -14,7 +14,6 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
-import com.udacity.stockhawk.ui.StockDetailsActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

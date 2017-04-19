@@ -45,7 +45,7 @@ public class StockDetailsActivity extends AppCompatActivity{
 
         for (int i = 0; i <= 50; i++) {
             HistoricalQuote hq = history.get(i);
-            entries.add(new Entry(i, hq.getClose().floatValue()));
+            entries.add(new Entry(hq.getDate().getTimeInMillis(), hq.getClose().floatValue()));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, stockSymbol);
@@ -55,11 +55,13 @@ public class StockDetailsActivity extends AppCompatActivity{
 
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTH_SIDED);
         chart.getXAxis().setTextColor(Color.WHITE);
+        chart.getXAxis().setValueFormatter(new DayAxisValueFormatter(chart));
 
         chart.getAxisLeft().setTextColor(Color.WHITE);
         chart.getAxisRight().setTextColor(Color.WHITE);
 
         chart.setData(lineData);
+        chart.setAutoScaleMinMaxEnabled(true);
         chart.invalidate(); // refresh
     }
 
