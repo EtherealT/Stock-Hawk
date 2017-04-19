@@ -11,6 +11,11 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
+import com.udacity.stockhawk.data.PrefUtils;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Created by tobi on 2017. 04. 19..
@@ -20,9 +25,19 @@ class WidgetDataProvider implements RemoteViewsFactory {
 
     private Context context;
     private Cursor cursor;
+    private final DecimalFormat dollarFormatWithPlus;
+    private final DecimalFormat dollarFormat;
+    private final DecimalFormat percentageFormat;
 
     public WidgetDataProvider(Context context, Intent intent) {
         this.context = context;
+        dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
+        dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
+        dollarFormatWithPlus.setPositivePrefix("+$");
+        percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
+        percentageFormat.setMaximumFractionDigits(2);
+        percentageFormat.setMinimumFractionDigits(2);
+        percentageFormat.setPositivePrefix("+");
     }
 
     @Override
@@ -60,6 +75,17 @@ class WidgetDataProvider implements RemoteViewsFactory {
 
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
         rv.setTextViewText(R.id.symbol, cursor.getString(Contract.Quote.POSITION_SYMBOL));
+        rv.setTextViewText(R.id.price, dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
+
+        float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
+        float percentageChange = cursor.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+
+        String change = dollarFormatWithPlus.format(rawAbsoluteChange);
+        String percentage = percentageFormat.format(percentageChange / 100);
+
+        if (PrefUtils.getDisplayMode(context).equals(context.getString(R.string.pref_display_mode_absolute_key)))
+            rv.setTextViewText(R.id.change, change);
+        else rv.setTextViewText(R.id.change, percentage);
 
         return rv;
     }
