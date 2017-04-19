@@ -2,13 +2,12 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/stock_hawk_widget"
     android:initialLayout="@layout/stock_hawk_widget"
-    android:minHeight="10dp"
-    android:minWidth="10dp"
+    android:minHeight="40dp"
+    android:minWidth="250dp"
     android:previewImage="@drawable/example_appwidget_preview"
-    android:resizeMode="horizontal|vertical"
+    android:resizeMode="vertical"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"
-    android:minResizeHeight="73dp"
-    >
+    android:minResizeHeight="73dp">
 
 </appwidget-provider>
