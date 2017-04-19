@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.widget;
 
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.ui.MainActivity;
+import com.udacity.stockhawk.ui.StockDetailsActivity;
 
 /**
  * Created by tobi on 2017. 04. 19..
@@ -27,6 +29,12 @@ public class StockHawkWidgetProvider extends AppWidgetProvider {
 
             Intent i = new Intent(context, WidgetRemoteViewsService.class);
             rvs.setRemoteAdapter(R.id.widget_stock_list, i);
+
+            Intent clickIntentTemplate = new Intent(context, StockDetailsActivity.class);
+            PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
+                    .addNextIntentWithParentStack(clickIntentTemplate)
+                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+            rvs.setPendingIntentTemplate(R.id.widget_stock_list, clickPendingIntentTemplate);
 
             appWidgetManager.updateAppWidget(appWidgetId, rvs);
         }

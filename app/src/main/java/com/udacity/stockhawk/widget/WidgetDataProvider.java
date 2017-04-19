@@ -1,5 +1,6 @@
 package com.udacity.stockhawk.widget;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.ui.StockDetailsActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -91,6 +93,10 @@ class WidgetDataProvider implements RemoteViewsFactory {
 
         if (rawAbsoluteChange > 0) rv.setTextColor(R.id.change, Color.parseColor("#00C853"));
         else rv.setTextColor(R.id.change, Color.parseColor("#D50000"));
+
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtra("stockSymbol", cursor.getString(Contract.Quote.POSITION_SYMBOL));
+        rv.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
 
         return rv;
     }
