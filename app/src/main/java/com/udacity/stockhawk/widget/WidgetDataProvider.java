@@ -3,6 +3,7 @@ package com.udacity.stockhawk.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Binder;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.udacity.stockhawk.data.PrefUtils;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
+
 
 /**
  * Created by tobi on 2017. 04. 19..
@@ -73,7 +75,7 @@ class WidgetDataProvider implements RemoteViewsFactory {
         if (position == AdapterView.INVALID_POSITION || cursor == null || !cursor.moveToPosition(position))
             return null;
 
-        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
+        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_list_item_quote);
         rv.setTextViewText(R.id.symbol, cursor.getString(Contract.Quote.POSITION_SYMBOL));
         rv.setTextViewText(R.id.price, dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
 
@@ -86,6 +88,9 @@ class WidgetDataProvider implements RemoteViewsFactory {
         if (PrefUtils.getDisplayMode(context).equals(context.getString(R.string.pref_display_mode_absolute_key)))
             rv.setTextViewText(R.id.change, change);
         else rv.setTextViewText(R.id.change, percentage);
+
+        if (rawAbsoluteChange > 0) rv.setTextColor(R.id.change, Color.parseColor("#00C853"));
+        else rv.setTextColor(R.id.change, Color.parseColor("#D50000"));
 
         return rv;
     }
