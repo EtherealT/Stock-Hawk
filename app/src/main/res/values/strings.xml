@@ -34,4 +34,6 @@
 
     <string name="fab_content_description">Add new stock</string>
     <string name="new_stock_symbol_text_field">Text field for new stock</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
