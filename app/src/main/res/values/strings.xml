@@ -33,4 +33,5 @@
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
     <string name="fab_content_description">Add new stock</string>
+    <string name="new_stock_symbol_text_field">Text field for new stock</string>
 </resources>
